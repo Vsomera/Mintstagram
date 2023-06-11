@@ -18,5 +18,8 @@
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^5.6.0",
     "mongoose": "^7.2.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.13"
   }
 }
