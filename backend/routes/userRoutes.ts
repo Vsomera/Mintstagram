@@ -1,12 +1,13 @@
 import express, { Request, Response } from "express"
+import userController from "../controllers/userController"
 const router = express.Router()
+
 
 // @ desc   Register User
 // @ route  POST /api/users/
 // @ access Public
-router.post("/", (req : Request, res : Response) => {
-    res.status(200).send("Register User")
-})
+
+router.post("/", userController.registerUser)
 
 // @ desc   Login User
 // @ route  POST /api/users/login
