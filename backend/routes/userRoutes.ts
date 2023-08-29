@@ -12,9 +12,7 @@ router.post("/", userController.registerUser)
 // @ desc   Login User
 // @ route  POST /api/users/login
 // @ access Public
-router.post("/login", (req : Request, res : Response) => {
-    res.status(200).send("Login User")
-})
+router.post("/login", userController.loginUser)
 
 // @ desc   User Info
 // @ route  GET /api/users/me

@@ -1,11 +1,9 @@
 import { Request, Response } from "express"
-import bcrypt, { genSalt } from "bcryptjs"
-import Jwt from "jsonwebtoken"
 import hashMiddleware from "../middleware/hashMiddleware"
 import User from "../models/userModel"
 
 // @ desc Register User
-// @ route POST /api/users
+// @ route POST /api/users/
 // @ access PUBLIC
 
 const registerUser = async (req: Request, res: Response) => {
@@ -47,6 +45,10 @@ const registerUser = async (req: Request, res: Response) => {
     }
 }
 
+// @ desc Login User
+// @ route POST /api/users/login
+// @ access PUBLIC
+
 const loginUser = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body
@@ -54,10 +56,33 @@ const loginUser = async (req: Request, res: Response) => {
         // checks if user exists in database
         const user = await User.findOne({ email })
 
+        if (!user) {
+            return res.status(400).json({
+                message: "Could not Login User",
+                error: "User does not exist"
+            })
+        } else {
+            // if the user exists compare given password with hashed password in database
+            const isMatch = await hashMiddleware.comparePasswordHash(password, user.password)
 
+            if (isMatch) {
+                return res.status(200).json({
+                    message: "User logged in"
+                })
+            } else {
+                return res.status(201).json({
+                    message: "Could not Login User",
+                    error: "Incorrect Password"
+                })
+            }
+
+        }
 
     } catch (err) {
-
+        return res.status(400).json({
+            message: "Could not Login User",
+            error: err
+        })
     }
 }
 
