@@ -4,7 +4,7 @@ import mongoose from "mongoose"
 interface userSchema {
     username: string
     email: string
-    password: string | number
+    password: string
     createdAt: Date
 }
 
