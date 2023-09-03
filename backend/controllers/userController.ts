@@ -1,4 +1,5 @@
 import { Request, Response } from "express"
+import jwt from "jsonwebtoken"
 import hashMiddleware from "../middleware/hashMiddleware"
 import User from "../models/userModel"
 
@@ -57,7 +58,7 @@ const loginUser = async (req: Request, res: Response) => {
         const user = await User.findOne({ email })
 
         if (!user) {
-            return res.status(400).json({
+            return res.status(401).json({
                 message: "Could not Login User",
                 error: "User does not exist"
             })
@@ -66,11 +67,25 @@ const loginUser = async (req: Request, res: Response) => {
             const isMatch = await hashMiddleware.comparePasswordHash(password, user.password)
 
             if (isMatch) {
-                return res.status(200).json({
-                    message: "User logged in"
+                // authorize user by sending a jwt with user id, and username
+                const authUser = {
+                    _id: user._id,
+                    username: user.username,
+                    email: email
+                }
+
+                const accessToken = jwt.sign(
+                    authUser,
+                    process.env.ACCESS_TOKEN_SECRET as string
+                ) // NOTE : token does not have an expiration date
+
+                return res.status(201).json({ 
+                    message : "Login Successful",
+                    accessToken : accessToken 
                 })
+
             } else {
-                return res.status(201).json({
+                return res.status(401).json({
                     message: "Could not Login User",
                     error: "Incorrect Password"
                 })
