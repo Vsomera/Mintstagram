@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express"
 import userController from "../controllers/userController"
+import authMiddleware from "../middleware/authMiddleware"
 const router = express.Router()
 
 
@@ -17,8 +18,12 @@ router.post("/login", userController.loginUser)
 // @ desc   User Info
 // @ route  GET /api/users/me
 // @ access Private
-router.get("/me", (req : Request, res : Response) => {
-    res.status(200).send("Get Logged in user's info")
+router.get("/me", authMiddleware.authenticateToken, (req : Request, res : Response) => {
+    // returns the logged in user's information
+    res.status(200).json({
+        // @ts-ignore
+        user : req.user
+    })
 })
 
 module.exports = router
