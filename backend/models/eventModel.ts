@@ -4,6 +4,7 @@ import mongoose from "mongoose"
 interface eventSchema {
     user : mongoose.Schema.Types.ObjectId
     title : string
+    eventDetails? : string
     eventDate : Date
     completed : boolean
 }
@@ -16,11 +17,15 @@ const eventSchema = new Schema<eventSchema>({
     },
     title : {
         type : String,
-        required : true
+        required : [true, "Please enter an Event title"]
     }, 
+    eventDetails : {
+        type : String,
+        required : false
+    },
     eventDate : {
         type : Date,
-        immutable : false // allows the date to be changed
+        immutable : true // allows the date to be changed
     },
     completed : {
         type : Boolean,
