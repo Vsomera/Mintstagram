@@ -6,9 +6,7 @@ const router = express.Router()
 // @ desc   GET Events
 // @ route  POST /api/events/
 // @ access Private
-router.get("/", (req: Request, res: Response) => {
-    res.status(200).send("Get User Events")
-})
+router.get("/", authMiddleware.authenticateToken, eventController.getEvent)
 
 // @ desc   POST Event
 // @ route  POST /api/events/
