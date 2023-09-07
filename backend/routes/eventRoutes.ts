@@ -16,14 +16,7 @@ router.post("/", authMiddleware.authenticateToken, eventController.postEvent)
 // @ desc   PUT Event
 // @ route  POST /api/events/:id
 // @ access Private
-router.put("/:id", authMiddleware.authenticateToken, (req: Request, res: Response) => {
-    // @ts-ignore
-    const id = req.body
-    res.status(200).json({
-        message: "Edit Events",
-        id: id
-    })
-})
+router.put("/:id", authMiddleware.authenticateToken, eventController.editEvent)
 
 // @ desc   DELETE Event
 // @ route  POST /api/events/:id

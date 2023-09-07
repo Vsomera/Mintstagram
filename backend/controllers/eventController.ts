@@ -50,7 +50,47 @@ const postEvent = async (req: Request, res: Response) => {
     }
 }
 
+const editEvent = async (req: Request, res: Response) => {
+    // edit event with the associated event id and user id
+    try {
+        // @ts-ignore
+        const { _id } = req.user
+        const docId = req.params.id
+        const { title, eventDetails, eventDate, completed } = req.body
+
+        const updateDoc = await Event.findOneAndUpdate(
+            { _id: docId, user: _id },
+            {
+                $set: {
+                    title,
+                    eventDetails,
+                    eventDate,
+                    completed
+                }
+            }
+        )
+
+        if (updateDoc) {
+            return res.status(201).json({
+                message: "Document successfully updated"
+            })
+        } else {
+            return res.status(400).json({
+                message: "Unable to edit Document",
+                error: "Document not found"
+            })
+        }
+
+    } catch (err) {
+        return res.status(400).json({
+            message: "Unable to edit Document",
+            err
+        })
+    }
+}
+
 export default {
     getEvent,
-    postEvent
+    postEvent,
+    editEvent
 }
