@@ -72,18 +72,51 @@ const editEvent = async (req: Request, res: Response) => {
 
         if (updateDoc) {
             return res.status(201).json({
-                message: "Document successfully updated"
+                message: "Event successfully updated"
             })
         } else {
             return res.status(400).json({
-                message: "Unable to edit Document",
-                error: "Document not found"
+                message: "Unable to edit Event",
+                error: "Event not found"
             })
         }
 
     } catch (err) {
         return res.status(400).json({
-            message: "Unable to edit Document",
+            message: "Event to edit Document",
+            err
+        })
+    }
+}
+
+const deleteEvent = async (req: Request, res: Response) => {
+    // deletes a document based on the associated user id and doc id
+
+    try {
+        // @ts-ignore
+        const { _id } = req.user
+        const docId = req.params.id
+
+        const deleteDoc = await Event.deleteOne({
+            _id: docId,
+            user: _id
+        })
+
+        if (deleteDoc.deletedCount >= 1) {
+            console.log(deleteDoc)
+            return res.status(200).json({
+                message: "Event successfully deleted",
+            })
+        } else {
+            return res.status(400).json({
+                message: "Unable to delete document",
+                error: "Event does not exists"
+            })
+        }
+
+    } catch (err) {
+        return res.status(400).json({
+            message: "Event to delete document",
             err
         })
     }
@@ -92,5 +125,6 @@ const editEvent = async (req: Request, res: Response) => {
 export default {
     getEvent,
     postEvent,
-    editEvent
+    editEvent,
+    deleteEvent
 }

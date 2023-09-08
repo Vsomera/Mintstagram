@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express"
+import express from "express"
 import authMiddleware from "../middleware/authMiddleware"
 import eventController from "../controllers/eventController"
 const router = express.Router()
@@ -21,12 +21,6 @@ router.put("/:id", authMiddleware.authenticateToken, eventController.editEvent)
 // @ desc   DELETE Event
 // @ route  POST /api/events/:id
 // @ access Private
-router.delete("/:id", (req: Request, res: Response) => {
-    const id = req.params.id
-    res.status(200).json({
-        message: "Delete Events",
-        id: id
-    })
-})
+router.delete("/:id", authMiddleware.authenticateToken, eventController.deleteEvent)
 
 module.exports = router
