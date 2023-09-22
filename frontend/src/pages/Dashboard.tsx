@@ -1,7 +1,7 @@
 const Calendar = () => {
     return (
         <>
-            Calendar Page
+            Dashboard Page
         </>
     )
 }
