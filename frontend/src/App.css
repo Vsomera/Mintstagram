@@ -1,7 +1,4 @@
-@font-face {
-  font-family: QuincyCF;
-  src: url("./fonts/quincycf-thin.otf");
-}
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Exa&family=Poppins&family=Sen&display=swap');
 
 @font-face {
   font-family: TTCommons;
@@ -34,7 +31,7 @@ a {
 
 h1,
 h2 {
-  font-family: QuincyCF;
+  font-family: 'Poppins', sans-serif;
 }
 
 p,
