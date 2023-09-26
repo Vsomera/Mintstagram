@@ -3,8 +3,8 @@ const Register = () => {
         <>
             <div className="registration">
                 <div className="register-container">
-                    
-                    <div className="title">
+
+                    <div className="auth-title">
                         <h1>Registration</h1>
                     </div>
 
