@@ -1,0 +1,25 @@
+/*Register Page*/
+.registration {
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    display: flex;
+    min-height: 100vh;
+    min-width: 100vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-container {
+    min-height: 15rem;
+    min-width: 45rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    display: flex;
+    align-items: end;
+    border-right: 1px solid;
+    padding: 1.5rem;
+}

@@ -16,6 +16,9 @@
 
 body {
   background-color: var(--main-color);
+  min-width: auto;
+  min-height: auto;
+  font-family: TTCommons;
   margin: 0;
   color: white;
 }
@@ -53,4 +56,43 @@ h2 {
 p {
   font-size: 18px;
   line-height: 20px;
+}
+
+/*Animated auth input boxes*/
+.auth-container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+.auth-input {
+  position: relative;
+  width: 100%;
+}
+.auth-input input{
+  width: 100%;
+  padding: 10px;
+  border: 1px transparent;
+  background: transparent;
+  border-radius: 5px;
+  outline: none;
+  color: #fff;
+  font-size: 1.5em;
+}
+.auth-input span {
+  position: absolute;
+  left: 0;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 1em;
+  color: rgba(255,255,255, 0.25); /*initial color of placeholder*/
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
+.auth-input input:valid ~ span,
+.auth-input input:focus ~ span {
+  color: white;
+  transform: translateX(10px) translateY(-10px);
+  font-size: 0.8rem;
+  padding: 0.10px;
 }
